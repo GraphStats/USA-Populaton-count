@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compteur de Population des USA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/themes/odometer-theme-default.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/odometer.min.js"></script>
+    <style>
+        .odometer {
+            font-size: 20em;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="odometer" id="populationCounter">0</div>
+
+    <script>
+        async function fetchPopulation() {
+            try {
+                console.log('Fetching population data...');
+                const response = await fetch('https://worldpopulationreview.com/country-rankings/us-population');
+                const data = await response.json();
+                console.log('Data received:', data); // Affichez les données reçues
+
+                const population = data.find(entry => entry.country === 'United States').population;
+                console.log('Parsed population:', population);
+                return population;
+            } catch (error) {
+                console.error('Error fetching population data:', error);
+                document.getElementById('populationCounter').textContent = 'Erreur de données';
+                return 0;
+            }
+        }
+
+        async function updatePopulationCounter() {
+            const population = await fetchPopulation();
+            if (!isNaN(population) && population > 0) {
+                const odometerElement = document.getElementById('populationCounter');
+                odometerElement.innerHTML = population; // Mettre à jour Odometer
+                console.log('Population updated:', population);
+            } else {
+                document.getElementById('populationCounter').textContent = 'Erreur de données';
+            }
+        }
+
+        setInterval(updatePopulationCounter, 2000);
+
+        updatePopulationCounter();
+    </script>
+</body>
+</html>
