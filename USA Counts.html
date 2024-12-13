@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USA Population Counter</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/themes/odometer-theme-default.min.css">
+    <style>
+        body {
+            font-family: Roboto, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background: #000000;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .odometer {
+            font-size: 20em;
+            color: #ffffff;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div id="population" class="odometer">0</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/odometer.min.js"></script>
+    <script>
+        let population = 345_426_570;
+        const growthRatePerSecond = 0.0625;
+
+        function updatePopulation() {
+            const growthPerInterval = growthRatePerSecond * 2;
+            population += growthPerInterval;
+            document.getElementById('population').innerText = Math.round(population);
+        }
+
+        setInterval(updatePopulation, 2000);
+
+        updatePopulation();
+    </script>
+</body>
+</html>
