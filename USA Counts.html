@@ -7,24 +7,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/themes/odometer-theme-default.min.css">
     <style>
         body {
-            font-family: Roboto, sans-serif;
+            font-family: Arial, sans-serif;
             text-align: center;
             padding: 50px;
-            background: #000000;
-        }
-
-        h1 {
-            color: #333;
+            background: #000;
         }
 
         .odometer {
             font-size: 20em;
-            color: #ffffff;
-        }
-
-        p {
-            font-size: 1.2em;
-            color: #666;
+            color: #fff;
         }
     </style>
 </head>
@@ -33,17 +24,26 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/odometer.min.js"></script>
     <script>
-        let population = 345_426_570;
-        const growthRatePerSecond = 0.0625;
+        // Initial population and growth rate
+        let population = 346267780; // Base population (approximation as of 2024)
+        const growthRatePerSecond = 0.150; // Approx. growth per second (based on annual growth)
 
+        // Function to update population
         function updatePopulation() {
-            const growthPerInterval = growthRatePerSecond * 2;
+            const growthPerInterval = growthRatePerSecond * 2; // Growth in 2 seconds
             population += growthPerInterval;
             document.getElementById('population').innerText = Math.round(population);
         }
 
+        // Configure odometer animation duration
+        Odometer.options = {
+            duration: 2000 // Animation duration set to 2 seconds
+        };
+
+        // Update every 2 seconds
         setInterval(updatePopulation, 2000);
 
+        // Initial display
         updatePopulation();
     </script>
 </body>
